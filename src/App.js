@@ -1,24 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import "./App.css";
+import AWS from "./modules/aws";
+import AzureV10 from "./modules/azurev10";
+import AzureV12 from "./modules/azurev12";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AWS />
+      <AzureV10 />
+      <AzureV12 />
     </div>
   );
 }
