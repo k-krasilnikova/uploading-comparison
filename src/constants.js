@@ -1,9 +1,9 @@
 export const S3_CONFIG = {
-  bucketName: "fusionmarkets",
-  dirName: "idverification" /* optional */,
-  region: "ap-southeast-2",
-  accessKeyId: "AKIAJZNGEISFNO2OE3WQ",
-  secretAccessKey: "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"
+  bucketName: "uploading-comparison",
+  dirName: "test" /* optional */,
+  region: "eu-central-1",
+  accessKeyId: "AKIAIFZRA2GPRQUR6WYQ",
+  secretAccessKey: "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"
 };
 
 export const AZURE_ACCOUNT = "testtabeebblob";
