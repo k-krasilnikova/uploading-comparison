@@ -8,7 +8,7 @@ const Uploading = ({ classes, uploadFiles, uploads, counter }) => {
   console.log(uploads);
   return (
     <div className={classes.wrapper}>
-      <h2>Azure v10</h2>
+      <h2>Azure v2-current</h2>
       <input
         className={classes.input}
         type="file"
