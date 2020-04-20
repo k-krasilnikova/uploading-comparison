@@ -15,27 +15,29 @@ const AzureContainer = () => {
     setCounter(0);
 
     const files = e.target.files;
-    const intervalStartTime = Date.now();
-    const azureInterval = setInterval(
-      () => setCounter((Date.now() - intervalStartTime) / 1000),
-      500
-    );
-    Array.from(files).forEach(file => {
-      blobService.createBlockBlobFromBrowserFile(
-        AZURE_CONTAINER,
-        file.name,
-        file,
-        function(error, result, response) {
-          setUploads(uploads => {
-            const newUploads = [...uploads, result];
-            if (newUploads.length === files.length) {
-              clearInterval(azureInterval);
-            }
-            return newUploads;
-          });
-        }
+    if (files && files.length) {
+      const intervalStartTime = Date.now();
+      const azureInterval = setInterval(
+        () => setCounter((Date.now() - intervalStartTime) / 1000),
+        500
       );
-    });
+      Array.from(files).forEach(file => {
+        blobService.createBlockBlobFromBrowserFile(
+          AZURE_CONTAINER,
+          file.name,
+          file,
+          function(error, result, response) {
+            setUploads(uploads => {
+              const newUploads = [...uploads, result];
+              if (newUploads.length === files.length) {
+                clearInterval(azureInterval);
+              }
+              return newUploads;
+            });
+          }
+        );
+      });
+    }
   };
 
   return (

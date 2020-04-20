@@ -15,17 +15,20 @@ const Uploading = ({ classes, uploadFiles, uploads, counter }) => {
         multiple
       />
       <div className={classes.downloads}>
-        {uploads.map(file => (
-          <a
-            href={file.location}
-            key={file.key}
-            download
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {file.key}
-          </a>
-        ))}
+        {uploads.map(
+          file =>
+            file && (
+              <a
+                href={file.location}
+                key={file.key}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {file.key}
+              </a>
+            )
+        )}
       </div>
       <p>{counter} Seconds</p>
     </div>

@@ -16,18 +16,21 @@ const Uploading = ({ classes, uploadFiles, uploads, counter }) => {
         multiple
       />
       <div className={classes.downloads}>
-        {uploads.map(file => (
-          <a
-            href={`https://${AZURE_ACCOUNT}.blob.core.windows.net/${file &&
-              file.container}/${file && file.name}`}
-            key={file && file.requestId}
-            download
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {file && file.name}
-          </a>
-        ))}
+        {uploads.map(
+          file =>
+            file && (
+              <a
+                href={`https://${AZURE_ACCOUNT}.blob.core.windows.net/${file &&
+                  file.container}/${file && file.name}`}
+                key={file && file.requestId}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {file && file.name}
+              </a>
+            )
+        )}
       </div>
       <p>{counter} Seconds</p>
     </div>

@@ -13,24 +13,26 @@ const AwsContainer = () => {
     setCounter(0);
 
     const files = e.target.files;
-    const intervalStartTime = Date.now();
-    const awsInterval = setInterval(
-      () => setCounter((Date.now() - intervalStartTime) / 1000),
-      500
-    );
-    Array.from(files).forEach(file => {
-      ReactS3.uploadFile(file, S3_CONFIG)
-        .then(result => {
-          setUploads(uploads => {
-            const newUploads = [...uploads, result];
-            if (newUploads.length === files.length) {
-              clearInterval(awsInterval);
-            }
-            return newUploads;
-          });
-        })
-        .catch(err => console.error(err));
-    });
+    if (files && files.length) {
+      const intervalStartTime = Date.now();
+      const awsInterval = setInterval(
+        () => setCounter((Date.now() - intervalStartTime) / 1000),
+        500
+      );
+      Array.from(files).forEach(file => {
+        ReactS3.uploadFile(file, S3_CONFIG)
+          .then(result => {
+            setUploads(uploads => {
+              const newUploads = [...uploads, result];
+              if (newUploads.length === files.length) {
+                clearInterval(awsInterval);
+              }
+              return newUploads;
+            });
+          })
+          .catch(err => console.error(err));
+      });
+    }
   };
 
   return (

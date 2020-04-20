@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 
+import { AZURE_ACCOUNT } from "../../../../constants";
 import styles from "./styles";
 
 const Uploading = ({ classes, uploadFiles, uploads, counter }) => {
@@ -15,17 +16,20 @@ const Uploading = ({ classes, uploadFiles, uploads, counter }) => {
         multiple
       />
       <div className={classes.downloads}>
-        {uploads.map(file => (
-          <a
-            href={file.url}
-            key={file.requestId}
-            download
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {file._name}
-          </a>
-        ))}
+        {uploads.map(
+          file =>
+            file && (
+              <a
+                href={`https://${AZURE_ACCOUNT}.blob.core.windows.net/${file._containerName}/${file._name}`}
+                key={file.requestId}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {file._name}
+              </a>
+            )
+        )}
       </div>
       <p>{counter} Seconds</p>
     </div>

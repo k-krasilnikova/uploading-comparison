@@ -17,32 +17,34 @@ const AzureContainer = () => {
     setCounter(0);
 
     const files = e.target.files;
-    const intervalStartTime = Date.now();
-    const azureInterval = setInterval(
-      () => setCounter((Date.now() - intervalStartTime) / 1000),
-      500
-    );
-    Array.from(files).forEach(file => {
-      const containerClient = blobService.getContainerClient(AZURE_CONTAINER);
-      const blockBlobClient = containerClient.getBlockBlobClient(file.name);
-      blockBlobClient
-        .uploadBrowserData(file)
-        .then(uploadedFile => {
-          setUploads(uploads => {
-            const newUploads = [
-              ...uploads,
-              { ...uploadedFile, ...blockBlobClient }
-            ];
-            if (newUploads.length === files.length) {
-              clearInterval(azureInterval);
-            }
-            return newUploads;
+    if (files && files.length) {
+      const intervalStartTime = Date.now();
+      const azureInterval = setInterval(
+        () => setCounter((Date.now() - intervalStartTime) / 1000),
+        500
+      );
+      Array.from(files).forEach(file => {
+        const containerClient = blobService.getContainerClient(AZURE_CONTAINER);
+        const blockBlobClient = containerClient.getBlockBlobClient(file.name);
+        blockBlobClient
+          .uploadBrowserData(file)
+          .then(uploadedFile => {
+            setUploads(uploads => {
+              const newUploads = [
+                ...uploads,
+                { ...uploadedFile, ...blockBlobClient }
+              ];
+              if (newUploads.length === files.length) {
+                clearInterval(azureInterval);
+              }
+              return newUploads;
+            });
+          })
+          .catch(error => {
+            console.log(error);
           });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    });
+      });
+    }
   };
 
   return (
